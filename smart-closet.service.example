@@ -1,0 +1,18 @@
+[Unit]
+Description=Smart Closet Raspberry Pi Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=closet
+Group=closet
+WorkingDirectory=/home/closet/smart_closet_sw
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/home/closet/smart_closet_sw/.env
+ExecStart=/home/closet/smart_closet_sw/.venv/bin/python /home/closet/smart_closet_sw/smart_closet_final_v2_7_hall_rfid_verified/smart_closet_final_v2/run_smart_closet.py --config /home/closet/smart_closet_sw/smart_closet_final_v2_7_hall_rfid_verified/smart_closet_final_v2/config.smart_closet.yaml --host 0.0.0.0 --port 8080
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

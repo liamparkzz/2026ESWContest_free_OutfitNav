@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+httpx
+PyYAML
+pyserial
+gpiozero
+RPi.GPIO
+adafruit-circuitpython-ads1x15

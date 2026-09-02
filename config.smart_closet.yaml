@@ -1,0 +1,80 @@
+slot_count: 8
+
+database:
+  # 기존 smart_closet.db를 그대로 사용한다.
+  path: smart_closet.db
+
+hall:
+  # CD74HC4067 S0,S1,S2,S3 (BCM)
+  select_pins: [5, 6, 13, 19]
+  adc_channel: 0
+  gain: 1
+  settle_s: 0.001
+
+  # 실제 Hall 측정값에 맞춰 마지막으로 보정할 값.
+  occupied_on_v: 2.15
+  empty_off_v: 2.05
+  occupied_low: false
+  debounce_s: 0.05
+
+rfid:
+  port: /dev/ttyUSB0
+  baudrate: 115200
+  # 실제 B7 조회로 확인한 이 리더의 최대 설정값.
+  power_dbm: 26
+  # 저수준 인식은 기존 정상 동작 M100 single_poll() 그대로 사용한다.
+  # 통합 프로그램의 등록/위치매칭은 성공한 20-Scan 테스트 조건을 그대로 사용.
+  analysis_scans: 20
+  analysis_poll_timeout_s: 0.13
+  analysis_poll_delay_s: 0.02
+  analysis_max_tags: 10
+  analysis_top_n: 3
+  analysis_fail_rate_pct: 15.0
+
+  # 기존 API 호환용. scan_20_analysis에서는 위 analysis_* 값을 사용한다.
+  scan_window_s: 0.20
+  inter_scan_delay_s: 0.05
+  debug_detect: true
+  registration_reservation_s: 90
+  # 사진 분석 완료 후 새 Hall 입력을 기다리는 최대 시간. 눌림 감지 후에는
+  # 20회 스캔(0.13초 poll + 0.02초 간격)이 약 3초 동안 자동 실행된다.
+  registration_wait_timeout_s: 120
+
+solenoid:
+  # Arduino UNO: /dev/ttyACM0. auto도 가능하지만 고정 경로가 더 명확함.
+  port: /dev/ttyACM0
+  baudrate: 115200
+  timeout_s: 3.0
+
+door:
+  # JCAC0001-002 -> GPIO24 (BCM), physical pin 18
+  # 기본 배선 가정: GPIO24 -> 센서 -> GND, 내부 pull-up.
+  # 이 경우 문 열림=HIGH라서 open_when_active=true.
+  # 실제 테스트 결과가 반대면 이것만 false로 변경.
+  enabled: true
+  gpio: 24
+  pull_up: true
+  open_when_active: true
+  debounce_s: 0.03
+
+session:
+  poll_interval_s: 0.02
+
+  # Hall EMPTY->OCCUPIED 뒤에는 RFID 20회 Scan(약 3초)을 1 Round로 사용.
+  # 15% 이상인 미배정 등록 RFID 중 인식률이 가장 높은 1개를 Slot에 매칭.
+  # 후보가 없으면 Hall이 OCCUPIED인 동안 20 Scan Round를 계속 반복한다.
+  retry_delay_s: 0.05
+
+codi:
+  # OpenWeather 키는 코드에 저장하지 않고 Pi 환경변수에서 읽는다.
+  weather_api_key_env: OPENWEATHER_API_KEY
+  weather_timeout_s: 10
+  geocoding_user_agent: SmartCloset-Capstone-Project/2.0
+  top_n: 3
+
+ai:
+  # 기존 프로젝트의 config.real.yaml에 있던 AI 서버 설정을 그대로 가져온다.
+  inherit_config: config.real.yaml
+  # AI 설정 파일이 없더라도 등록 흐름을 막지 않고 종류/색상/계절을
+  # 사용자가 직접 입력할 수 있게 한다.
+  fallback_to_manual: true

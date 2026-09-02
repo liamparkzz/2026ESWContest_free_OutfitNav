@@ -1,0 +1,9 @@
+ai:
+  provider: external_http
+  external_endpoint: "https://your-ai-server.example/analyze"
+  external_file_field: file
+  external_timeout_seconds: 60
+  external_api_key_env: SMART_CLOSET_AI_KEY
+  external_auth_header: Authorization
+  external_auth_prefix: Bearer
+  external_extra_fields: {}

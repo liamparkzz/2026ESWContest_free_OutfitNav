@@ -1,0 +1,92 @@
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: Arial, "Noto Sans KR", sans-serif; background:#f5f6f8; color:#202124; }
+.app-wrap { max-width:760px; margin:0 auto; padding:24px; }
+.card { background:#fff; border:1px solid #ddd; border-radius:18px; padding:22px; margin:16px 0; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+h1,h2,h3 { margin-top:0; }
+button { border:1px solid #999; background:#fff; padding:12px 16px; border-radius:12px; cursor:pointer; font-size:16px; margin:4px; }
+button.primary { background:#111; color:#fff; border-color:#111; }
+button.big { width:100%; padding:22px; font-size:22px; margin:8px 0; }
+button:disabled { opacity:.5; cursor:not-allowed; }
+input,textarea,select { width:100%; padding:12px; border:1px solid #bbb; border-radius:10px; font-size:16px; margin-top:6px; }
+textarea { min-height:110px; }
+label { display:block; margin-bottom:14px; }
+.row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.muted { color:#666; font-size:14px; }
+.preview { max-width:100%; max-height:340px; border-radius:14px; border:1px solid #ddd; margin-top:12px; }
+.status { border:1px solid #ddd; border-radius:12px; padding:12px; background:#fafafa; margin-top:12px; white-space:pre-wrap; }
+.voice-box { border:1px solid #ddd; border-radius:14px; padding:16px; background:#fafafa; margin-top:18px; }
+.result-grid { display:grid; grid-template-columns:1fr; gap:8px; }
+@media (min-width:640px){ .result-grid { grid-template-columns:1fr 1fr 1fr; } }
+
+.find-list-header { display:flex; justify-content:space-between; gap:10px; align-items:center; margin:14px 0 10px; }
+.clothing-list { display:grid; grid-template-columns:1fr; gap:10px; margin:10px 0 18px; }
+.clothing-card { width:100%; text-align:left; display:grid; gap:5px; padding:16px; border:1px solid #cfd3d8; background:#fff; border-radius:14px; margin:0; }
+.clothing-card:hover, .clothing-card:focus { border-color:#555; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+.clothing-number { font-size:20px; font-weight:700; }
+.clothing-info { font-size:15px; line-height:1.45; color:#444; }
+.clothing-action { font-size:14px; font-weight:700; margin-top:4px; }
+.empty-state { border:1px dashed #bbb; border-radius:12px; padding:18px; color:#666; background:#fafafa; }
+.section-divider { border:0; border-top:1px solid #e2e2e2; margin:22px 0; }
+@media (min-width:640px){ .clothing-list { grid-template-columns:1fr 1fr; } }
+
+/* Global hardware event notice: remains available regardless of current page. */
+.global-notice {
+  position: fixed;
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%) translateY(-150%);
+  width: min(92vw, 720px);
+  z-index: 9999;
+  padding: 14px 18px;
+  border: 1px solid #999;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,.16);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+  opacity: 0;
+  transition: transform .2s ease, opacity .2s ease;
+  pointer-events: none;
+}
+.global-notice.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+
+/* Registered clothing / RFID management on the Find screen. */
+.registered-list { display:grid; grid-template-columns:1fr; gap:10px; margin:10px 0 18px; }
+.registered-card { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:15px; border:1px solid #cfd3d8; border-radius:14px; background:#fff; }
+.registered-card-main { min-width:0; display:flex; flex-direction:column; gap:5px; }
+.registered-actions { display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+.location-badge { display:inline-block; width:max-content; max-width:100%; border-radius:999px; padding:5px 9px; font-size:13px; font-weight:700; }
+.location-badge.inside { background:#eef7ee; border:1px solid #9bc59b; }
+.location-badge.outside { background:#f4f4f4; border:1px solid #c9c9c9; color:#666; }
+.rfid-text { color:#777; font-size:12px; word-break:break-all; }
+button.small-action { padding:9px 11px; font-size:14px; }
+button.danger { padding:9px 11px; font-size:14px; border-color:#b43b3b; color:#a22020; background:#fff; }
+button.danger:hover, button.danger:focus { background:#fff1f1; }
+@media (max-width:560px){ .registered-card { align-items:flex-start; flex-direction:column; } .registered-actions { width:100%; justify-content:flex-start; } }
+
+/* V2.7 physical-state verification / prominent deletion */
+.location-badge.uncertain { background:#fff6dc; border-color:#d5a500; color:#775800; }
+button.prominent-delete { font-weight:800; border-width:2px; min-width:110px; }
+.version-chip { display:inline-block; padding:5px 9px; border:1px solid #999; border-radius:999px; font-size:12px; font-weight:700; margin-bottom:8px; }
+.registration-success { margin-top:12px; padding:16px; border:2px solid #5c9a5c; border-radius:14px; background:#eef8ee; line-height:1.6; }
+
+/* Weather-aware outfit recommendations */
+.weather-card { display:grid; gap:5px; margin:14px 0; padding:15px; border:1px solid #8fb4d6; border-radius:14px; background:#eef7ff; }
+.codi-list { display:grid; gap:14px; margin:16px 0; }
+.codi-card { border:1px solid #cfd3d8; border-radius:16px; padding:16px; background:#fff; box-shadow:0 2px 7px rgba(0,0,0,.05); }
+.codi-rank { display:flex; align-items:center; justify-content:space-between; font-size:20px; margin-bottom:10px; }
+.codi-rank span { padding:5px 10px; border-radius:999px; background:#111; color:#fff; font-size:15px; }
+.codi-garment { display:flex; align-items:center; gap:12px; margin:9px 0; padding:11px; border-radius:12px; background:#f7f7f8; line-height:1.45; }
+.color-swatch { width:42px; height:42px; flex:0 0 42px; border-radius:50%; border:1px solid rgba(0,0,0,.25); }
+.codi-card details { margin:12px 0; }
+.codi-card summary { cursor:pointer; font-weight:700; }
+.codi-card li { margin:5px 0; }
+.preference-row { display:flex; align-items:center; gap:5px; flex-wrap:wrap; margin-top:10px; }
+.preference-row span { margin-left:8px; font-size:13px; font-weight:700; }
+.preference-row button { padding:5px 10px; margin:0; }
